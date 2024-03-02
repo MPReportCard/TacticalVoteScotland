@@ -93,7 +93,7 @@ form.addEventListener("submit", e => {
   let postcode = formData.get("postcode")
 
   function printMessageToScreen(constituencyString){
-  fetch(`http://192.168.1.78:8080/js/constituencies.json`)
+  fetch(`https://tacticalvotescotland.github.io/js/constituencies.json`)
       .then(res => res.json())
       .then(data => {
       console.log(data);
