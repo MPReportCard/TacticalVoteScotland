@@ -116,6 +116,8 @@ form.addEventListener("submit", e => {
             document.body.style['background-color'] = "#FAA61A";
             break;
         }
+        document.getElementById('twtLink').href=`https://twitter.com/intent/tweet?text=If%20you%20want%20to%20stop%20the%20SNP%20in%20${constituencyString},%20your%20best%20chance%20is%20to%20vote%20${data[constituencyString].recommended}.%20Check%20your%20constituency%20here%20%F0%9F%97%B3%EF%B8%8F%20https%3A//tacticalvotescotland.github.io`;
+        document.getElementById('waLink').href=`https://api.whatsapp.com/send?text=If%20you%20want%20to%20stop%20the%20SNP%20in%20${constituencyString}%2C%20your%20best%20chance%20is%20to%20vote%20${data[constituencyString].recommended}.%20Check%20your%20constituency%20here%20%F0%9F%97%B3%EF%B8%8F%20https%3A%2F%2Ftacticalvotescotland.github.io`;
         outcome.style.display = "block";
         splash.style.display = "none";
         loading.style.display = "none";

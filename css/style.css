@@ -67,6 +67,10 @@ body {
     font-size: 2em;
   }
 
+  #submitButton {
+    font-size: 2em;
+  }
+
   #graphicButton {
     font-size: 1.5em;
   }
@@ -243,34 +247,37 @@ a {
 
 #socials {
   color: white;
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
+  margin: 0.5%;
   width: 100%;
   text-align: center;
-  display: none;
   flex-direction: row !important;
 }
 
-#socials a {
-  display: block;
-  width: 30%;
-  margin-right: 10px;
-  border-radius: 2px;
-  font-size: 16px;
-  padding: 10px;
+#socials button {
+  border-radius: 5px;
+  margin: 10px;
+  font-family: "loos-wide",sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #ffffff;
+  font-size: 1.5em;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  cursor: pointer;
+}
+
+#submitButton {
+  font-size: 2em;
 }
 
 #twtLink {
-  background-color: #1DA1F2;
   color: #ffffff;
 }
 
 #fbLink {
-  background-color: #4267B2;
   color: #ffffff;
 }
 
 #waLink {
-  background-color: #25D366;
   color: #ffffff;
 }
