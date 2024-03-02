@@ -1,0 +1,97 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Vote tactically to stop the SNP.</title>
+  <meta name="description" content="If stopping the SNP is your priority, vote tactically in this election.">
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content="">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Vote tactically to stop the SNP.">
+  <meta property="og:description" content="If stopping the SNP is your priority, vote tactically in this election.">
+  <meta property="og:image" content="">
+
+  <!-- Twitter Meta Tags -->
+  <meta property="twitter:url" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Vote tactically to stop the SNP.">
+  <meta name="twitter:description" content="If stopping the SNP is your priority, vote tactically in this election.">
+  <meta name="twitter:image" content=""></meta>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=BenchNine:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Adobe Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/fbf0dsr.css">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/959ce015bf.js" crossorigin="anonymous"></script>
+
+  <!-- CSS Link -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/favicon.png" type="image/x-icon">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6D0QH0RY5L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6D0QH0RY5L');
+</script>
+
+<script src="js/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+</head>
+<body>
+
+<div id="container">
+
+  <div id="infoBox">
+    <div id="infoHeading">
+      <i id="voteIcon" class="fa-solid fa-check-to-slot"></i>
+      <h1 id="graphicText">In <span id="constituency"></span>, vote <span id="recommendation"></span> to stop the SNP</h1>
+      <h2 id="graphicSubtext">Your vote can make the difference - share this recommendation with your friends! <i class="fa-solid fa-comments"></i>
+    </div>
+    <div id="graphicBox">
+      <button name="graphic button" id="graphicButton" type="button" data-html2canvas-ignore="true">Download Graphic</button>
+    </div>
+    <div id="graphicOutput">
+    </div>
+  </div>
+
+  <button id="restartButton" name="restart" type="reset" form="postcode" value="restart">Start Again</button>
+
+  <div id="splash">
+    <h1>Vote tactically to stop the SNP.</h1>
+    <h2>If stopping the SNP is your priority in this election, use this tool to find out which party has the best chance in your constituency.</h2>
+
+  <div id="form">
+    <form name="postcode" id="postcode">
+      <p id="error"></p>
+      <div class="flex-container" id="socials">
+        <a id="fbLink" href="#" target="_blank"><div id="fbButton">Share on Facebook</div></a>
+        <a id="twtLink" href="#" target="_blank"><div id="twtButton">Share on Twitter</div></a>
+        <a id="waLink" href="#" target="_blank"><div id="waButton">Share on WhatsApp</div></a>
+      </div>
+      <input type="text" name="postcode" minlength="5" maxlength="8" placeholder="Enter postcode" required ><a href="#localData">
+      <button name="submit" type="submit" id="button" form="postcode" value="Submit">Submit</button></a>
+    </form>
+    <p id="disclaimer">Recommendations for each seat are based on opinion polling research, past electoral history, demographic data and specific local knowledge.</p>
+    <h1 id="loading">Loading...</h1>
+  </div>
+  </div>
+
+
+</div>
+<script src="js/script.js"></script>
+</body>
+</html>

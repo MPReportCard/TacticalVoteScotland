@@ -1,0 +1,152 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+// Grab form element from page
+const form = document.querySelector("#postcode")
+const splash = document.querySelector("#splash")
+const resetLink = document.querySelector("#resetLink")
+const message = document.querySelector("#message")
+const error = document.querySelector("#error")
+const outcome = document.querySelector("#infoBox")
+const constituency = document.querySelector("#constituency")
+const recommendation = document.querySelector("#recommendation")
+const loading = document.querySelector("#loading")
+const infoBox = document.querySelector("#infoBox")
+const restartButton = document.querySelector("#restartButton");
+
+let constituencyString
+let graphicsGenerated = 0;
+
+function reset() {
+  location.reload();
+}
+
+restartButton.addEventListener("click", reset);
+
+// Converts any images in the target area to 64-bit data so html2canvas can read them properly
+function imageSrcToBase64(img) {
+  const isBase64 = /^data:image\/(png|jpeg);base64,/.test(img.src);
+  if (isBase64) {
+    return;
+  }
+  return fetch(img)
+    .then((res) => res.blob())
+    .then(
+      (blob) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onerror = reject;
+          reader.onload = () => {
+            resolve(reader.result);
+          };
+          reader.readAsDataURL(blob);
+        })
+    )
+    .then((dataURL) => {
+      img.src = dataURL;
+    });
+}
+
+// Creates a canvas from the targeted page element (in this case #infoBox) then creates a preview for the user at the specified width and height and calls the image download function.
+function generateGraphic() {
+
+  infoBox.style.background = document.defaultView.getComputedStyle(document.body).background;
+
+  html2canvas(document.querySelector("#infoBox"), {
+
+    windowWidth: 1440,
+    width: infoBox.width,
+    windowHeight: 1080,
+    height: infoBox.height,
+
+  }, {scale: '3'}).then(canvas => {
+      canvas.id = `graphic${graphicsGenerated}`;
+      document.getElementById('graphicOutput').appendChild(canvas);
+      document.getElementById(`graphic${graphicsGenerated}`).style="display:none";
+      imgPreview = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+      download_image();
+  });
+
+  infoBox.style.background = "none";
+
+}
+
+// Creates the PNG file and downloads it through the user's browser.
+function download_image() {
+  let download = document.getElementById(`graphic${graphicsGenerated}`);
+  image = download.toDataURL("image/png").replace("image/png", "image/octet-stream");
+  let link = document.createElement('a');
+  link.download = `Tactical Voting Recommendation - ${constituency.textContent}.png`;
+  link.href = image;
+  link.click();
+  document.getElementById('refreshLink').style.display = 'block';
+  document.getElementById('graphicOutput').removeChild(canvas);
+}
+
+let graphicButton = document.getElementById('graphicButton');
+graphicButton.addEventListener("click", generateGraphic);
+
+form.addEventListener("submit", e => {
+  // Stop page refreshing
+  e.preventDefault()
+  // Make form data accessible as JS variable
+  let formData = new FormData(form)
+  let postcode = formData.get("postcode")
+
+  function printMessageToScreen(constituencyString){
+  fetch(`http://192.168.1.78:8080/js/constituencies.json`)
+      .then(res => res.json())
+      .then(data => {
+      console.log(data);
+      if(constituencyString == undefined) {
+        error.style.display = "block";
+        error.innerHTML = "Sorry, looks like that's an invalid postcode.";
+      } else {
+        loading.style.display = "block";
+        error.style.display = "none";
+        constituency.innerHTML = constituencyString;
+        recommendation.innerHTML = data[constituencyString].recommended;
+        switch(data[constituencyString].recommended) {
+          case "Labour":
+            document.body.style['background-color'] = "#e4003b";
+            break;
+          case "Conservative":
+            document.body.style['background-color'] = "#00b0f0";
+            break;
+          case "Liberal Democrat":
+            document.body.style['background-color'] = "#FAA61A";
+            break;
+        }
+        outcome.style.display = "block";
+        splash.style.display = "none";
+        loading.style.display = "none";
+        restartButton.style.display= "block";
+  }}
+            )
+  }
+
+function getConstituencyName(postcode) {
+  fetch(`https://api.postcodes.io/postcodes/${postcode}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      outcome.style.display = "none";
+      if(data.status != 200) {
+        error.innerHTML = "Sorry, looks like that's an invalid postcode."
+        error.style.display = "block";
+      } else if(data.result.country != "Scotland") {
+        error.innerHTML = "Sorry, looks like that postcode isn't in Scotland."
+        error.style.display = "block";
+      } else {
+      let constituencyName = data.result.parliamentary_constituency;
+      let constituencyString = constituencyName.toString();
+      printMessageToScreen(constituencyString)
+      }
+    }
+    )
+}
+
+getConstituencyName(postcode);
+
+})
+
+})
