@@ -16,6 +16,21 @@ const restartButton = document.querySelector("#restartButton");
 let constituencyString
 let graphicsGenerated = 0;
 
+// Capture form data
+  window.addEventListener("load", function() {
+  form.addEventListener("submit", function(e) {
+    const captureData = new FormData(form);
+    const action = e.target.action;
+    fetch(action, {
+      method: 'POST',
+      body: data,
+    })
+    .then(() => {
+      alert("Success!");
+    })
+  });
+});
+
 function reset() {
   location.reload();
 }
@@ -88,6 +103,7 @@ graphicButton.addEventListener("click", generateGraphic);
 form.addEventListener("submit", e => {
   // Stop page refreshing
   e.preventDefault()
+
   // Make form data accessible as JS variable
   let formData = new FormData(form)
   let postcode = formData.get("postcode")
