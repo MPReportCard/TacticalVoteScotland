@@ -23,10 +23,7 @@ let graphicsGenerated = 0;
     const action = e.target.action;
     fetch(action, {
       method: 'POST',
-      body: data,
-    })
-    .then(() => {
-      alert("Success!");
+      body: captureData,
     })
   });
 });
