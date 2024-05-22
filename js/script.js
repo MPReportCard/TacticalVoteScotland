@@ -145,7 +145,7 @@ function getConstituencyName(postcode) {
     .then(data => {
       let sortedData = Object.keys(data.areas);
       let newConstituencyData = data.areas[sortedData[9]];
-      console.log(data);
+      console.log(newConstituencyData);
       outcome.style.display = "none";
       if(data.code == 400) {
         error.innerHTML = "Sorry, looks like that's an invalid postcode."
