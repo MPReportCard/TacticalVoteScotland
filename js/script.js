@@ -140,19 +140,21 @@ form.addEventListener("submit", e => {
   }
 
 function getConstituencyName(postcode) {
-  fetch(`https://api.postcodes.io/postcodes/${postcode}`)
+  fetch(`https://mapit.mysociety.org/postcode/${postcode}?api_key=ymM4j2aeGa1sPXpv4c8ypaS2YaSRB2ZvpKGptsUt`)
     .then(res => res.json())
     .then(data => {
+      let sortedData = Object.keys(data.areas);
+      let newConstituencyData = data.areas[sortedData[9]];
       console.log(data);
       outcome.style.display = "none";
       if(data.status != 200) {
         error.innerHTML = "Sorry, looks like that's an invalid postcode."
         error.style.display = "block";
-      } else if(data.result.country != "Scotland") {
+      } else if(newConstituencyData.country != "S") {
         error.innerHTML = "Sorry, looks like that postcode isn't in Scotland."
         error.style.display = "block";
       } else {
-      let constituencyName = data.result.parliamentary_constituency;
+      let constituencyName = newConstituencyData.name;
       let constituencyString = constituencyName.toString();
       printMessageToScreen(constituencyString)
       }
